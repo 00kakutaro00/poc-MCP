@@ -3,14 +3,16 @@ from mcp.client.stdio import stdio_client
 from langchain_mcp_adapters.tools import load_mcp_tools
 from langchain.chat_models import ChatOpenAI  # LangChainのOpenAIチャットモデル
 from langchain.agents import initialize_agent, AgentType
+import os
 
+CURRENT_DIR = os.getcwd()
 # OpenAIのGPT-3.5をチャットモデルとして使用（モデル名は必要に応じて変更可能）
 llm = ChatOpenAI(model_name="gpt-3.5-turbo")
 
 # MCPサーバーへの接続パラメータを設定（先ほどのmath_server.pyを指定）
 server_params = StdioServerParameters(
     command="python",
-    args=["/Users/kakusakitarou/work/llm-activity/poc-mcp/poc1/math_server.py"]  # math_server.pyのフルパスに置き換えてください
+    args=[f"{CURRENT_DIR}/math_server.py"]  # math_server.pyのフルパスに置き換えてください
 )
 
 # 非同期でエージェントを実行する関数を定義
